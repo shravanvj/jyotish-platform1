@@ -3,7 +3,6 @@ Jyotish Platform - Core Utilities
 """
 from src.core.config import get_settings, Settings
 from src.core.database import Base, get_db, init_db, close_db
-from src.core.cache import init_redis, close_redis, get_redis
 from src.core.security import (
     hash_password,
     verify_password,
@@ -25,10 +24,6 @@ __all__ = [
     "get_db",
     "init_db",
     "close_db",
-    # Cache
-    "init_redis",
-    "close_redis",
-    "get_redis",
     # Security
     "hash_password",
     "verify_password",
