@@ -147,7 +147,7 @@ class BirthProfile(Base, TimestampMixin):
     
     # Profile type
     is_primary: Mapped[bool] = mapped_column(Boolean, default=False)
-    relationship: Mapped[Optional[str]] = mapped_column(String(100))  # self, spouse, child, etc.
+    relation_type: Mapped[Optional[str]] = mapped_column(String(100))  # self, spouse, child, etc.
     
     # Relationships
     user: Mapped["User"] = relationship(back_populates="profiles")
