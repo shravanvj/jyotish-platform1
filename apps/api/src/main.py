@@ -6,12 +6,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-import redis.asyncio as redis
 from typing import AsyncIterator
 
 from src.core.config import get_settings
 from src.core.database import init_db, close_db
-from src.core.cache import init_redis, close_redis
 from src.routers import (
     birth_chart,
     panchang,
@@ -33,11 +31,9 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Application lifespan manager for startup/shutdown."""
     # Startup
     await init_db()
-    await init_redis()
     yield
     # Shutdown
     await close_db()
-    await close_redis()
 
 
 def create_app() -> FastAPI:

@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import MetaData
 from typing import AsyncIterator
+import os
 
 from src.core.config import get_settings
 
@@ -27,36 +28,56 @@ class Base(DeclarativeBase):
     metadata = metadata
 
 
-# Async engine configuration
-engine = create_async_engine(
-    settings.database_url.replace("postgresql://", "postgresql+asyncpg://"),
-    pool_size=settings.db_pool_size,
-    max_overflow=settings.db_max_overflow,
-    echo=settings.debug,
-)
+# Initialize engine only if DATABASE_URL is set
+engine = None
+async_session_factory = None
 
-# Session factory
-async_session_factory = async_sessionmaker(
-    engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-)
+if settings.database_url and settings.database_url != "postgresql://localhost/jyotish":
+    try:
+        db_url = settings.database_url
+        if db_url.startswith("postgresql://"):
+            db_url = db_url.replace("postgresql://", "postgresql+asyncpg://")
+        
+        engine = create_async_engine(
+            db_url,
+            pool_size=settings.db_pool_size,
+            max_overflow=settings.db_max_overflow,
+            echo=settings.debug,
+        )
+        
+        async_session_factory = async_sessionmaker(
+            engine,
+            class_=AsyncSession,
+            expire_on_commit=False,
+        )
+    except Exception as e:
+        print(f"Warning: Could not create database engine: {e}")
 
 
 async def init_db() -> None:
     """Initialize database connection pool."""
-    # Verify connection
-    async with engine.begin() as conn:
-        pass  # Connection test
+    if engine:
+        try:
+            async with engine.begin() as conn:
+                pass  # Connection test
+            print("Database connected successfully")
+        except Exception as e:
+            print(f"Warning: Database connection failed: {e}")
+    else:
+        print("Warning: No database configured - running without database")
 
 
 async def close_db() -> None:
     """Close database connection pool."""
-    await engine.dispose()
+    if engine:
+        await engine.dispose()
 
 
 async def get_db() -> AsyncIterator[AsyncSession]:
     """Dependency for getting database sessions."""
+    if not async_session_factory:
+        raise Exception("Database not configured")
+    
     async with async_session_factory() as session:
         try:
             yield session

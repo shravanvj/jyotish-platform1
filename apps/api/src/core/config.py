@@ -27,13 +27,13 @@ class Settings(BaseSettings):
     port: int = Field(default=8000, alias="PORT")
     
     # Security
-    secret_key: str = Field(..., alias="SECRET_KEY")
+    secret_key: str = Field(default="change-me-in-production-12345", alias="SECRET_KEY")
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24  # 24 hours
     refresh_token_expire_days: int = 30
     
     # Database
-    database_url: str = Field(..., alias="DATABASE_URL")
+    database_url: str = Field(default="", alias="DATABASE_URL")
     db_pool_size: int = 5
     db_max_overflow: int = 10
     
