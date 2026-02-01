@@ -206,9 +206,14 @@ export function getPlanet(name: string) {
 /**
  * Get zodiac sign from degree (0-360)
  */
-export function getZodiacSign(degree: number): string {
-  const signIndex = Math.floor((degree % 360) / 30);
-  return RASHIS[signIndex]?.name || 'Unknown';
+export function getZodiacSign(degree: number): { sign: string; degreeInSign: number } {
+  const normalizedDegree = ((degree % 360) + 360) % 360;
+  const signIndex = Math.floor(normalizedDegree / 30);
+  const degreeInSign = normalizedDegree % 30;
+  return {
+    sign: RASHIS[signIndex]?.name || 'Unknown',
+    degreeInSign: degreeInSign,
+  };
 }
 
 /**
@@ -247,13 +252,37 @@ export function getPlanetAbbr(planet: string): string {
 /**
  * Get nakshatra by number or name
  */
-export function getNakshatra(identifier: number | string) {
-  if (typeof identifier === 'number') {
-    return NAKSHATRAS.find((n) => n.num === identifier);
+export function getNakshatra(identifier: number | string): { nakshatra: string; pada: number; lord: string } {
+  // If it's a degree value (longitude), calculate nakshatra
+  if (typeof identifier === 'number' && identifier >= 0 && identifier < 360) {
+    const nakshatraLength = 360 / 27; // 13.333... degrees per nakshatra
+    const padaLength = nakshatraLength / 4; // 3.333... degrees per pada
+    
+    const nakshatraIndex = Math.floor(identifier / nakshatraLength);
+    const positionInNakshatra = identifier % nakshatraLength;
+    const pada = Math.floor(positionInNakshatra / padaLength) + 1;
+    
+    const nakshatra = NAKSHATRAS[nakshatraIndex];
+    return {
+      nakshatra: nakshatra?.name || 'Unknown',
+      pada: pada,
+      lord: nakshatra?.lord || 'Unknown',
+    };
   }
-  return NAKSHATRAS.find(
-    (n) => n.name.toLowerCase() === identifier.toLowerCase()
-  );
+  
+  // If it's a string, look up by name
+  if (typeof identifier === 'string') {
+    const found = NAKSHATRAS.find(
+      (n) => n.name.toLowerCase() === identifier.toLowerCase()
+    );
+    return {
+      nakshatra: found?.name || 'Unknown',
+      pada: 1,
+      lord: found?.lord || 'Unknown',
+    };
+  }
+  
+  return { nakshatra: 'Unknown', pada: 1, lord: 'Unknown' };
 }
 
 /**
