@@ -30,12 +30,6 @@ const nextConfig = {
     NEXT_PUBLIC_APP_NAME: 'Jyotish',
     NEXT_PUBLIC_APP_DESCRIPTION: 'Vedic Astrology Platform',
   },
-  
-  // Experimental features
-  experimental: {
-    // Server Actions
-    serverActions: true,
-  },
 };
 
 module.exports = nextConfig;

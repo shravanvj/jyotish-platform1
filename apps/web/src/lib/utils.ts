@@ -204,6 +204,47 @@ export function getPlanet(name: string) {
 }
 
 /**
+ * Get zodiac sign from degree (0-360)
+ */
+export function getZodiacSign(degree: number): string {
+  const signIndex = Math.floor((degree % 360) / 30);
+  return RASHIS[signIndex]?.name || 'Unknown';
+}
+
+/**
+ * Planet colors for chart display
+ */
+export const planetColors: Record<string, string> = {
+  Sun: '#f59e0b',
+  Moon: '#94a3b8',
+  Mars: '#ef4444',
+  Mercury: '#22c55e',
+  Jupiter: '#eab308',
+  Venus: '#ec4899',
+  Saturn: '#3b82f6',
+  Rahu: '#8b5cf6',
+  Ketu: '#f97316',
+};
+
+/**
+ * Get planet abbreviation for chart display
+ */
+export function getPlanetAbbr(planet: string): string {
+  const abbrs: Record<string, string> = {
+    Sun: 'Su',
+    Moon: 'Mo',
+    Mars: 'Ma',
+    Mercury: 'Me',
+    Jupiter: 'Ju',
+    Venus: 'Ve',
+    Saturn: 'Sa',
+    Rahu: 'Ra',
+    Ketu: 'Ke',
+  };
+  return abbrs[planet] || planet.slice(0, 2);
+}
+
+/**
  * Get nakshatra by number or name
  */
 export function getNakshatra(identifier: number | string) {
