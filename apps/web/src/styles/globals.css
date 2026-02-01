@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 30 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 10% 10%;
+    --primary: 36 88% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 265 86% 58%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 30 10% 40%;
+    --accent: 174 58% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 36 88% 48%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 30 15% 8%;
+    --foreground: 40 20% 95%;
+    --card: 30 15% 12%;
+    --card-foreground: 40 20% 95%;
+    --popover: 30 15% 12%;
+    --popover-foreground: 40 20% 95%;
+    --primary: 36 88% 55%;
+    --primary-foreground: 30 15% 8%;
+    --secondary: 265 86% 65%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 30 15% 20%;
+    --muted-foreground: 40 20% 60%;
+    --accent: 174 58% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 15% 22%;
+    --input: 30 15% 22%;
+    --ring: 36 88% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Sanskrit text styling */
+  .sanskrit {
+    @apply font-sanskrit;
+    font-feature-settings: "kern" 1;
+  }
+}
+
+@layer components {
+  /* Chart container styles */
+  .chart-container {
+    @apply relative aspect-square w-full max-w-lg mx-auto;
+  }
+  
+  /* South Indian chart style */
+  .chart-south-indian {
+    @apply grid grid-cols-4 grid-rows-4 border-2 border-primary-700;
+  }
+  
+  .chart-south-indian .house {
+    @apply border border-primary-300 p-1 text-xs flex flex-col items-center justify-center min-h-[60px];
+  }
+  
+  .chart-south-indian .house-center {
+    @apply col-span-2 row-span-2 bg-primary-50 dark:bg-primary-950;
+  }
+  
+  /* North Indian chart style */
+  .chart-north-indian {
+    @apply relative w-full aspect-square;
+  }
+  
+  .chart-north-indian .house {
+    @apply absolute border border-primary-300 p-1 text-xs flex flex-col items-center justify-center;
+  }
+  
+  /* Planet badges */
+  .planet-badge {
+    @apply inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium;
+  }
+  
+  .planet-sun { @apply bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200; }
+  .planet-moon { @apply bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200; }
+  .planet-mars { @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200; }
+  .planet-mercury { @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200; }
+  .planet-jupiter { @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200; }
+  .planet-venus { @apply bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200; }
+  .planet-saturn { @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200; }
+  .planet-rahu { @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200; }
+  .planet-ketu { @apply bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200; }
+  
+  /* Rashi colors */
+  .rashi-fire { @apply text-red-600 dark:text-red-400; }
+  .rashi-earth { @apply text-amber-700 dark:text-amber-400; }
+  .rashi-air { @apply text-sky-600 dark:text-sky-400; }
+  .rashi-water { @apply text-blue-600 dark:text-blue-400; }
+  
+  /* Card variants */
+  .card-vedic {
+    @apply bg-surface rounded-lg border border-primary-200 shadow-sm;
+    @apply dark:bg-surface-dark dark:border-primary-800;
+  }
+  
+  /* Shimmer loading effect */
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+  
+  .shimmer::after {
+    @apply absolute inset-0 -translate-x-full;
+    @apply bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+  
+  /* Mandala background */
+  .mandala-bg {
+    @apply relative;
+  }
+  
+  .mandala-bg::before {
+    @apply absolute inset-0 opacity-5 pointer-events-none;
+    background-image: url('/patterns/mandala.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    content: '';
+  }
+}
+
+@layer utilities {
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+  }
+  
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px theme('colors.primary.400 / 30%');
+  }
+  
+  .glow-secondary {
+    box-shadow: 0 0 20px theme('colors.secondary.400 / 30%');
+  }
+  
+  /* Scrollbar styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.primary.300') transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-primary-300 rounded-full;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-400;
+  }
+}
