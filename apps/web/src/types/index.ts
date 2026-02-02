@@ -110,7 +110,7 @@ export interface Tithi {
   is_amavasya: boolean;
 }
 
-export interface Nakshatra {
+export interface NakshatraInfo {
   number: number;
   name: string;
   pada: number;
