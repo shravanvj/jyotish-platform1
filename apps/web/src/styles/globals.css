@@ -51,12 +51,20 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200;
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  .dark * {
+    @apply border-gray-700;
+  }
+  
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
   }
   
   /* Sanskrit text styling */
@@ -117,8 +125,8 @@
   
   /* Card variants */
   .card-vedic {
-    @apply bg-surface rounded-lg border border-primary-200 shadow-sm;
-    @apply dark:bg-surface-dark dark:border-primary-800;
+    @apply bg-white rounded-lg border border-primary-200 shadow-sm;
+    @apply dark:bg-gray-800 dark:border-primary-800;
   }
   
   /* Shimmer loading effect */
