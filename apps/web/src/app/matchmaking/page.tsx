@@ -249,7 +249,7 @@ export default function MatchmakingPage() {
                   <BirthDataForm
                     onSubmit={handlePerson1Submit}
                     submitLabel="Continue to Person 2"
-                    showNameField={true}
+                    showName={true}
                   />
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function MatchmakingPage() {
                   <BirthDataForm
                     onSubmit={handlePerson2Submit}
                     submitLabel="Save Details"
-                    showNameField={true}
+                    showName={true}
                   />
                   
                   {person2.birthData && (
