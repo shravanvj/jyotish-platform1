@@ -19,6 +19,9 @@ const birthDataSchema = z.object({
 
 type BirthDataFormValues = z.infer<typeof birthDataSchema>;
 
+// Export the type for use in other components
+export type BirthFormData = BirthDataFormValues;
+
 interface BirthDataFormProps {
   onSubmit: (data: BirthDataFormValues) => void;
   isLoading?: boolean;
