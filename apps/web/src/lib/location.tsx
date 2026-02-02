@@ -145,7 +145,7 @@ export function usePlaceSearch(options: UsePlaceSearchOptions = {}) {
 /**
  * Get timezone offset in hours for a timezone name
  */
-export function getTimezoneOffset(timezone: string): number {
+function getTimezoneOffset(timezone: string): number {
   try {
     const now = new Date();
     const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
