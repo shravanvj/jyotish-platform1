@@ -203,8 +203,8 @@ export default function ChartPage() {
                   </thead>
                   <tbody>
                     {chartData.planets.map((planet) => {
-                      const { sign, degreeInSign } = getZodiacSign(planet.longitude);
-                      const { nakshatra, pada } = getNakshatra(planet.longitude);
+                      const signResult = getZodiacSign(planet.longitude) as { sign: string; degreeInSign: number };
+                      const nakshatraResult = getNakshatra(planet.longitude) as { nakshatra: string; pada: number };
                       
                       return (
                         <tr 
@@ -212,10 +212,10 @@ export default function ChartPage() {
                           className="border-b border-primary-100 dark:border-primary-900 hover:bg-muted/50"
                         >
                           <td className="py-3 px-4 font-medium">{planet.name}</td>
-                          <td className="py-3 px-4">{sign}</td>
-                          <td className="py-3 px-4">{formatDegrees(degreeInSign)}</td>
-                          <td className="py-3 px-4">{nakshatra}</td>
-                          <td className="py-3 px-4">{pada}</td>
+                          <td className="py-3 px-4">{signResult.sign}</td>
+                          <td className="py-3 px-4">{formatDegrees(signResult.degreeInSign)}</td>
+                          <td className="py-3 px-4">{nakshatraResult.nakshatra}</td>
+                          <td className="py-3 px-4">{nakshatraResult.pada}</td>
                           <td className="py-3 px-4">{planet.house}</td>
                           <td className="py-3 px-4">
                             {planet.isRetrograde ? (
