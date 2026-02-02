@@ -118,7 +118,7 @@ export function NorthIndianChart({
         <rect x="200" y="300" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary-300" />
         
         {/* Center box outline */}
-        <rect x="100" y="100" width="100" height="200" fill="currentColor" className="text-primary-50 dark:text-primary-950" stroke="currentColor" strokeWidth="1" className="text-primary-400" />
+        <rect x="100" y="100" width="100" height="200" fill="currentColor" className="text-primary-50 dark:text-primary-950" stroke="currentColor" strokeWidth="1" />
         
         {/* Center label */}
         <text x="150" y="190" textAnchor="middle" className="text-primary-600 dark:text-primary-400 text-xs" fill="currentColor">
